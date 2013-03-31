@@ -64,22 +64,22 @@ public class ItemRPGSword extends ItemSword
     {
         if (entityLiving != null)
         {
-            if (level >= 2)
+            if (getLevel(itemStack) >= 2)
             {
                 itemStack.setItemDamage(itemStack.getItemDamage()
-                        - entityLiving.getMaxHealth() / level);
-                    
+                        - entityLiving.getMaxHealth() / getLevel(itemStack));
             }
-            else if (itemStack.getItemDamage() == 0 && this.level < 25)
-            {
-                itemStack.setItemDamage(itemStack.getMaxDamage() - 1);
-                setLevel(itemStack, 1);
-            } 
             else
             {
                 itemStack.setItemDamage(itemStack.getItemDamage()
                             - entityLiving.getMaxHealth());
             }
+            if (itemStack.getItemDamage() == 0 && getLevel(itemStack) < 25)
+            {
+                itemStack.setItemDamage(itemStack.getMaxDamage() - 1);
+                setLevel(itemStack, 1);
+            } else{}
+            player.addPotionEffect(new PotionEffect(5, -1, (getLevel(itemStack) / 5)));
         } else
         {
         }
@@ -96,14 +96,19 @@ public class ItemRPGSword extends ItemSword
             if (entity instanceof EntityPlayer)
             {
                 EntityPlayer player = (EntityPlayer) entity;
-                if (player.inventory.currentItem == this.itemID)
+                if(player.inventory.hasItemStack(itemStack))
                 {
-                    if (player.inventory.getCurrentItem().getItemDamage() == 0 && this.level < 25)
+                    player.sendChatToPlayer(String.valueOf(getLevel(itemStack)));
+                    player.addPotionEffect(new PotionEffect(5, 10000, (getLevel(itemStack) / 5)));
+                    if (player.inventory.getCurrentItem() == itemStack)
                     {
-                        itemStack.setItemDamage(itemStack.getMaxDamage() - 1);
-                        setLevel(itemStack, 1);
+                        if (player.inventory.getCurrentItem().getItemDamage() == 0 && getLevel(itemStack) < 25)
+                        {  
+                            itemStack.setItemDamage(itemStack.getMaxDamage() - 1);
+                            setLevel(itemStack, 1);
+                        }
+                        
                     }
-                    player.addPotionEffect(new PotionEffect(5, -1, (this.level / 3)));
                 }
             }
         }
