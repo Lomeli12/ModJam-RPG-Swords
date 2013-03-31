@@ -1,6 +1,8 @@
 package com.lomeli.rpgsword;
 
 import com.lomeli.rpgsword.core.proxy.CommonProxy;
+import com.lomeli.rpgsword.core.*;
+import com.lomeli.rpgsword.items.ModItems;
 import com.lomeli.rpgsword.lib.*;
 
 import cpw.mods.fml.common.Mod;
@@ -31,10 +33,17 @@ public class RpgSword
     public void preInit(FMLPreInitializationEvent event)
     {
         configDir = event.getModConfigurationDirectory() + "\\RPGSwords\\";
+        
+        ModConfig.configureIDs(configDir);
     }
     @Init
     public void main(FMLInitializationEvent event)
     {
+        ModItems.registerItems();
+        
+        ModItems.registerRecipes();
+        
+        proxy.renderingRenders();
     }
     @PostInit
     public void postLoad(FMLPostInitializationEvent event)
