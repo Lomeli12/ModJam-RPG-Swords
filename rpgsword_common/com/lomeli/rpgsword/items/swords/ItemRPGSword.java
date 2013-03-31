@@ -27,7 +27,7 @@ public class ItemRPGSword extends ItemSword
     {
         super(par1, EnumToolMaterial.WOOD);
         itemTexture = texture;
-        this.setMaxDamage(1000);
+        this.setMaxDamage(1001);
         level = 0;
     }
 
@@ -64,24 +64,21 @@ public class ItemRPGSword extends ItemSword
     {
         if (entityLiving != null)
         {
-            if (entityLiving.getHealth() <= 0)
+            if (level >= 2)
             {
-                if (level > 1)
-                {
-                    itemStack.setItemDamage(itemStack.getItemDamage()
-                            - entityLiving.getMaxHealth() / level);
+                itemStack.setItemDamage(itemStack.getItemDamage()
+                        - entityLiving.getMaxHealth() / level);
                     
-                } else
-                {
-                    itemStack.setItemDamage(itemStack.getItemDamage()
-                            - entityLiving.getMaxHealth() / level);
-                }
-            } else if (itemStack.getItemDamage() == 0 && this.level < 25)
+            }
+            else if (itemStack.getItemDamage() == 0 && this.level < 25)
             {
                 itemStack.setItemDamage(itemStack.getMaxDamage() - 1);
                 setLevel(itemStack, 1);
-            } else
+            } 
+            else
             {
+                itemStack.setItemDamage(itemStack.getItemDamage()
+                            - entityLiving.getMaxHealth());
             }
         } else
         {

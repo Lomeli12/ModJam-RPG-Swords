@@ -59,5 +59,6 @@ public class ModItems
         {
             "  I", "LSL", "S  ", 'I',Item.ingotIron, 'S',Item.stick, 'L',new ItemStack(Item.dyePowder, 1, 4)
         });
+        //if()
     }
 }
