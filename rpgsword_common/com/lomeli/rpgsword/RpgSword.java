@@ -1,9 +1,9 @@
 package com.lomeli.rpgsword;
 
+import com.lomeli.rpgsword.core.ModConfig;
 import com.lomeli.rpgsword.core.proxy.CommonProxy;
-import com.lomeli.rpgsword.core.*;
 import com.lomeli.rpgsword.items.ModItems;
-import com.lomeli.rpgsword.lib.*;
+import com.lomeli.rpgsword.lib.RPGStrings;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -16,35 +16,38 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
-
 @Mod(modid = RPGStrings.modID, name = RPGStrings.modName, version = RPGStrings.version)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class RpgSword
 {
-    @SidedProxy(clientSide =RPGStrings.clientProxy, serverSide = RPGStrings.commonProxy)
+    @SidedProxy(clientSide = RPGStrings.clientProxy, serverSide = RPGStrings.commonProxy)
     public static CommonProxy proxy;
-    
+
     @Instance(RPGStrings.modID)
     public static RpgSword instance;
-    
+
     public static String configDir;
-    
+
     @PreInit
     public void preInit(FMLPreInitializationEvent event)
     {
         configDir = event.getModConfigurationDirectory() + "\\RPGSwords\\";
-        
+
         ModConfig.configureIDs(configDir);
     }
+
     @Init
     public void main(FMLInitializationEvent event)
     {
         ModItems.registerItems();
-        
+        ModItems.registerSwords();
+
         ModItems.registerRecipes();
-        
+        ModItems.registerSwordRecipes();
+
         proxy.renderingRenders();
     }
+
     @PostInit
     public void postLoad(FMLPostInitializationEvent event)
     {

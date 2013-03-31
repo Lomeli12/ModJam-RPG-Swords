@@ -8,7 +8,7 @@ public class RPGInts
     public static int flameSwordID;
     public static int weakSwordID;
     public static int wingedSwordID;
-    
+
     public static int lightIngotID;
     public static int flameIngotID;
 }
