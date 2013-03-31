@@ -23,7 +23,7 @@ public class ItemRPGSword extends ItemSword
     private String itemTexture;
     public int level;
 
-    public ItemRPGSword(int par1, String texture)
+    public ItemRPGSword(int par1, EnumToolMaterial material,String texture)
     {
         super(par1, EnumToolMaterial.WOOD);
         itemTexture = texture;
@@ -48,12 +48,12 @@ public class ItemRPGSword extends ItemSword
         level = getLevel(itemStack);
     }
 
-    private int getLevel(ItemStack itemStack)
+    protected int getLevel(ItemStack itemStack)
     {
         return NBTHelper.getInt(itemStack, "Level");
     }
 
-    private void setLevel(ItemStack itemStack, int plus)
+    protected void setLevel(ItemStack itemStack, int plus)
     {
         NBTHelper.setInteger(itemStack, "Level", level + plus);
     }
@@ -79,7 +79,6 @@ public class ItemRPGSword extends ItemSword
                 itemStack.setItemDamage(itemStack.getMaxDamage() - 1);
                 setLevel(itemStack, 1);
             } else{}
-            player.addPotionEffect(new PotionEffect(5, -1, (getLevel(itemStack) / 5)));
         } else
         {
         }
@@ -98,10 +97,11 @@ public class ItemRPGSword extends ItemSword
                 EntityPlayer player = (EntityPlayer) entity;
                 if(player.inventory.hasItemStack(itemStack))
                 {
-                    player.sendChatToPlayer(String.valueOf(getLevel(itemStack)));
-                    player.addPotionEffect(new PotionEffect(5, 10000, (getLevel(itemStack) / 5)));
                     if (player.inventory.getCurrentItem() == itemStack)
                     {
+                        if(getLevel(itemStack) >= 5)
+                            player.addPotionEffect(new PotionEffect(5, -1, ((getLevel(itemStack) / 5)-1)));
+                        else{}
                         if (player.inventory.getCurrentItem().getItemDamage() == 0 && getLevel(itemStack) < 25)
                         {  
                             itemStack.setItemDamage(itemStack.getMaxDamage() - 1);

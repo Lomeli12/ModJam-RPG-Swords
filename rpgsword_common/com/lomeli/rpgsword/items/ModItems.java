@@ -41,16 +41,20 @@ public class ModItems
     }
 
     public static Item basicSword;
+    public static Item flameSword;
 
     /**
      * Register swords
      */
     public static void registerSwords()
     {
-        basicSword = new ItemRPGSword(RPGInts.basicSwordID, "basicsword")
+        basicSword = new ItemRPGSword(RPGInts.basicSwordID, null, "basicsword")
                 .setUnlocalizedName("basicsword");
+        flameSword = new ItemFlameSword(RPGInts.flameSwordID, "flamesword")
+                .setUnlocalizedName("flameSword");
 
         LanguageRegistry.addName(basicSword, "Starter Sword");
+        LanguageRegistry.addName(flameSword, "Sword of Flame");
     }
 
     public static void registerSwordRecipes()
@@ -59,6 +63,10 @@ public class ModItems
         {
             "  I", "LSL", "S  ", 'I',Item.ingotIron, 'S',Item.stick, 'L',new ItemStack(Item.dyePowder, 1, 4)
         });
-        //if()
+        GameRegistry.addRecipe(new ItemStack(flameSword, 1), new Object[]
+        {
+            "FLF","FSF", " L ", 'L',lightIngot, 'F',flameIngot, 'S',Item.swordSteel
+        });
+        
     }
 }
