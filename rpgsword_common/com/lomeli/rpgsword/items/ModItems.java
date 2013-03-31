@@ -1,6 +1,7 @@
 package com.lomeli.rpgsword.items;
 
 import com.lomeli.rpgsword.lib.RPGInts;
+import com.lomeli.rpgsword.items.swords.*;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
@@ -35,6 +36,24 @@ public class ModItems
         GameRegistry.addRecipe(new ItemStack(flameIngot, 1), new Object[]
         {
            " B ", "BGB", " B ", 'B',Item.blazeRod, 'G',Item.ingotGold 
+        });
+    }
+    public static Item basicSword;
+    /**
+     * Register swords
+     */
+    public static void registerSwords()
+    {
+        basicSword = new ItemRPGSword(RPGInts.basicSwordID, "basicsword").setUnlocalizedName("basicsword");
+        
+        LanguageRegistry.addName(basicSword, "Starter Sword");
+    }
+    
+    public static void registerSwordRecipes()
+    {
+        GameRegistry.addRecipe(new ItemStack(basicSword, 1), new Object[]
+        {
+            
         });
     }
 }
