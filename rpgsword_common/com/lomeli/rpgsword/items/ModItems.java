@@ -42,6 +42,7 @@ public class ModItems
 
     public static Item basicSword;
     public static Item flameSword;
+    public static Item broadSword;
 
     /**
      * Register swords
@@ -52,9 +53,12 @@ public class ModItems
                 .setUnlocalizedName("basicsword");
         flameSword = new ItemFlameSword(RPGInts.flameSwordID, "flamesword")
                 .setUnlocalizedName("flameSword");
+        broadSword = new ItemBroadSword(RPGInts.broadSwordID, null, "broadsword")
+                .setUnlocalizedName("broadsword");
 
         LanguageRegistry.addName(basicSword, "Starter Sword");
         LanguageRegistry.addName(flameSword, "Sword of Flame");
+        LanguageRegistry.addName(broadSword, "Broad Sword");
     }
 
     public static void registerSwordRecipes()
@@ -66,6 +70,10 @@ public class ModItems
         GameRegistry.addRecipe(new ItemStack(flameSword, 1), new Object[]
         {
             "FLF","FSF", " L ", 'L',lightIngot, 'F',flameIngot, 'S',Item.swordSteel
+        });
+        GameRegistry.addRecipe(new ItemStack(broadSword, 1), new Object[]
+        {
+           "ILI","ILI","LSL", 'I',Item.ingotIron, 'S',Item.stick, 'L',lightIngot
         });
         
     }
